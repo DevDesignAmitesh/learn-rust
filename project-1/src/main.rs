@@ -1,32 +1,35 @@
+use std::io;
+
+use rand::Rng;
+
+
 fn main() {
-    let input = [11, 10, 11, 9, 7];
+    println!("Guess the number");
+
+    println!("Please enter your guessed number");
+
+    // generating the secret number
+    let secret_number = rand::thread_rng().gen_range(1..=100);
     
-    let is_even = is_even(input);
-
-    println!("{}", is_even)
-
-    // if is_even {
-    //     println!("{} is even", input)
-    // } else {
-    //     println!("{} is odd", input)
-    // }
-}
-
-fn is_even(input: [i32; 5]) -> bool {
-    let mut result = false;
-    // let mut val = 0;
+    println!("This is the secret number: {secret_number}");
     
-    for num in input.iter() {
-        if num % 2 == 0 {
-            result = true;
-            // val = num
-            break;
-        } else {
-            result = false;
-            // val = num;
-            break;
-        }
+    let mut guess = String::new();
+
+    // getting the guess from the users
+    io::stdin()
+        .read_line(&mut guess)
+        .expect("Failed to read line");
+        
+    // converting to int so that get compared easily
+    let my_int_guess: i32 = guess
+        .trim()
+        .parse()
+        .expect("unable to convert it to number");
+        
+    if my_int_guess == secret_number {
+        println!("you guessed the right word: {guess}");
+    } else {
+        println!("you guessed the wrong word: {guess}");
     }
-    
-    result
+        
 }
